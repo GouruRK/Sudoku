@@ -150,9 +150,13 @@ def parser(map):
             for line in file:
                 line = line.rstrip()
                 if len(line) == 9:
-                    tab.append(["0" if line[i] in {" ", "."} else line[i] for i in range(9)])
+                    tab.append(
+                        ["0" if line[i] in {" ", "."} else line[i] for i in range(9)]
+                    )
                 else:
-                    tab.append(["0" if cell in {" ", "."} else cell for cell in line.split()])
+                    tab.append(
+                        ["0" if cell in {" ", "."} else cell for cell in line.split()]
+                    )
     elif len(map) == 81:
         temp = []
         for i in range(81):
@@ -160,7 +164,7 @@ def parser(map):
                 if temp != []:
                     tab.append(temp)
                     temp = []
-            
+
             temp.append("0" if map[i] in {" ", "."} else map[i])
         tab.append(temp)
     return tab_to_dict(tab)
