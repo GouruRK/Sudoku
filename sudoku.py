@@ -68,9 +68,6 @@ class Sudoku:
 
 
 class Solveur:
-    """
-    Solveur inspirated by https://github.com/Julien00859
-    """
     def __init__(self, grid):
         self.grid = grid.copy()
         self.solved = {cell: "123456789" for cell in coords}
@@ -153,9 +150,9 @@ def parser(map):
             for line in file:
                 line = line.rstrip()
                 if len(line) == 9:
-                    tab.append(["0" if line[i] == "." else  line[i] for i in range(9)])
+                    tab.append(["0" if line[i] in {" ", "."} else line[i] for i in range(9)])
                 else:
-                    tab.append(["0" if cell == "." else cell for cell in line.split()])
+                    tab.append(["0" if cell in {" ", "."} else cell for cell in line.split()])
     elif len(map) == 81:
         temp = []
         for i in range(81):
@@ -163,7 +160,8 @@ def parser(map):
                 if temp != []:
                     tab.append(temp)
                     temp = []
-            temp.append(map[i])
+            
+            temp.append("0" if map[i] in {" ", "."} else map[i])
         tab.append(temp)
     return tab_to_dict(tab)
 
@@ -180,7 +178,7 @@ def main():
     game.solve()
     f = time()
     print(game)
-    print(game.is_solved(), f - d)
+    print(f"Solved in {round(f-d, 4)}s")
 
 
 if __name__ == "__main__":
